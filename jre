@@ -1,0 +1,12 @@
+#!/usr/local/bin/python3
+
+import sys
+
+def main():
+    arguments = sys.argv
+    arguments.pop(0)
+    print("arguments:")
+    [print(argument) for argument in arguments]
+
+if __name__ == "__main__":
+    main()

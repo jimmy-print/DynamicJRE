@@ -8,15 +8,15 @@ def main():
     
     if len(arguments) == 0:
         print_usage_message()
-        return
+        return 1
     
     if "-h" in arguments or "--help" in arguments:
         print_usage_message()
-        return
+        return 0
 
 def print_usage_message():
     with open("usage_message.txt", 'r') as f:
         print(f.read())
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

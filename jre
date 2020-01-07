@@ -5,8 +5,18 @@ import sys
 def main():
     arguments = sys.argv
     arguments.pop(0)
-    print("arguments:")
-    [print(argument) for argument in arguments]
+    
+    if len(arguments) == 0:
+        print_usage_message()
+        return
+    
+    if "-h" in arguments or "--help" in arguments:
+        print_usage_message()
+        return
+
+def print_usage_message():
+    with open("usage_message.txt", 'r') as f:
+        print(f.read())
 
 if __name__ == "__main__":
     main()

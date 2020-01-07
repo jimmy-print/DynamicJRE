@@ -1,0 +1,6 @@
+
+Usage:
+    jre <episode-number> [options]
+
+Options:
+    -h, --help                      Show this message

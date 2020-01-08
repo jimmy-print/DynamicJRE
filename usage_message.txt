@@ -4,3 +4,5 @@ Usage:
 
 Options:
     -h, --help                      Show this message
+    -p, --pipe                      Use unix pipelines instead of
+                                    positional arguments

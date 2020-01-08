@@ -14,7 +14,17 @@ def main():
         print_usage_message()
         return 0
 
-    first_argument = arguments[0]
+    not_using_pipeline = True
+    if "-p" in arguments or "--pipe" in arguments:
+        not_using_pipeline = False
+    
+    if not_using_pipeline:
+        first_argument = arguments[0]
+    else:
+        first_argument = "".join(
+            sys.stdin.readlines()
+        ).rstrip()
+        
     try:
         episode_number = int(first_argument)
     except ValueError:

@@ -2,6 +2,8 @@
 
 import sys
 
+import get_episode
+
 def main():
     arguments = sys.argv
     arguments.pop(0)
@@ -31,7 +33,7 @@ def main():
         print("You did not enter a proper episode number.")
         return 1
 
-    print(f"Episode number: {first_argument}")
+    get_episode.with_episode_number(episode_number)
 
 def print_usage_message():
     with open("usage_message.txt", 'r') as f:

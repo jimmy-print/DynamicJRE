@@ -27,13 +27,13 @@ def main():
             sys.stdin.readlines()
         ).rstrip()
         
+    episode_number = first_argument
+    
     try:
-        episode_number = int(first_argument)
-    except ValueError:
-        print("You did not enter a proper episode number.")
+        get_episode.with_episode_number(episode_number)
+    except TypeError:
+        print("You did not enter a proper episode number")
         return 1
-
-    get_episode.with_episode_number(episode_number)
 
 def print_usage_message():
     with open("usage_message.txt", 'r') as f:

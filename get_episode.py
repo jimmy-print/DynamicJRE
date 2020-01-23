@@ -1,4 +1,4 @@
-import os
+import subprocess
 
 def with_episode_number(episode_number):
     try:
@@ -10,4 +10,13 @@ def with_episode_number(episode_number):
     
     url_format = "http://traffic.libsyn.com/joeroganexp/p"
 
-    os.system(f"wget {url_format}{episode_number}.mp3")
+    try:
+        subprocess.run(["wget",f"{url_format}{episode_number}.mp3"])
+    except KeyboardInterrupt:
+        cleanup(episode_number)
+
+def cleanup(episode_number):
+    print("Keyboard interrupt detected")
+    print("Commencing cleanup")
+    subprocess.run(["rm",f"p{episode_number}.mp3"])
+    print("Cleanup complete. Exiting.")

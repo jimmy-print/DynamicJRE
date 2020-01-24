@@ -16,7 +16,7 @@ def with_episode_number(episode_number):
         cleanup(episode_number)
 
 def cleanup(episode_number):
-    print("Keyboard interrupt detected")
+    print("\nKeyboard interrupt detected")
     print("Commencing cleanup")
     subprocess.run(["rm",f"p{episode_number}.mp3"])
     print("Cleanup complete. Exiting.")

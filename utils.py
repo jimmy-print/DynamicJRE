@@ -1,7 +1,9 @@
 import os
 
 def get_absolute_path(relative_path):
-    return f"{os.path.dirname(os.path.abspath(relative_path))}/{relative_path}"
+    absolute_path_of_program_folder = os.path.dirname(
+        os.path.abspath(__file__))
+    absolute_path = os.path.join(absolute_path_of_program_folder,
+                                 relative_path)
+    return absolute_path
 
-if __name__ == "__main__":
-    print(get_absolute_path("example_file.txt"))

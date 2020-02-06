@@ -4,6 +4,7 @@ import sys
 import os
 
 import get_episode
+import utils
 
 def main():
     arguments = sys.argv
@@ -37,7 +38,7 @@ def main():
         return 1
 
 def print_usage_message():
-    path = f"{os.path.dirname(__file__)}/usage_message.txt"
+    path = f"{utils.get_absolute_path('usage_message.txt')}"
     with open(path, 'r') as f:
         print(f.read())
 

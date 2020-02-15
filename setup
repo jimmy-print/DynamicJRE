@@ -1,3 +1,20 @@
 #!/usr/bin/env bash
 
+# assumes that setup is run as
+# $ ./setup
+# instead of as
+# $ DynamicJRE/setup
+
+echo "--------------------"
+
+echo "Creating symbolic link"
 ln -s "$(pwd)/jre" "/usr/local/bin"
+echo ""
+
+echo "Creating settings file"
+touch settings.txt
+echo ""
+
+echo "Setup complete."
+
+echo "--------------------"  

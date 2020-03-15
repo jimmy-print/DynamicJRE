@@ -5,11 +5,12 @@ lines = raw_file.split("\n")
 
 settings = dict()
 for line in lines:
+    key, value = None, None
     try:
         key, value = line.split()
     except ValueError:
         # there is formatting whitespace
-        pass
+        break
     settings[key] = value
 
 print(settings)

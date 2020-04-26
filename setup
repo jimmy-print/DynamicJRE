@@ -8,7 +8,7 @@
 echo "--------------------"
 
 echo "Creating symbolic link"
-ln -s "$(pwd)/jre.py" "/usr/local/bin/jre"
+ln -s "$(pwd)/jrep.py" "/usr/local/bin/jrep"
 echo ""
 
 echo "Creating settings file"

@@ -1,4 +1,4 @@
-with open("settings.txt",'r') as f:
+with open("settings.txt", 'r') as f:
     raw_file = f.read()
 
 lines = raw_file.split("\n")

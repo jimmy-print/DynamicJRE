@@ -12,11 +12,11 @@ def main():
     arguments.pop(0)
 
     if len(arguments) == 0:
-        print_usage_message()
+        utils.print_usage_message()
         return 1
 
     if "-h" in arguments or "--help" in arguments:
-        print_usage_message()
+        utils.print_usage_message()
         return 0
 
     not_using_pipeline = True
@@ -37,12 +37,6 @@ def main():
     except TypeError:
         print("You did not enter a proper episode number")
         return 1
-
-
-def print_usage_message():
-    path = f"{utils.get_absolute_path('usage_message.txt')}"
-    with open(path, 'r') as f:
-        print(f.read())
 
 
 if __name__ == "__main__":

@@ -10,6 +10,6 @@ def get_absolute_path(relative_path):
 
 
 def print_usage_message():
-    path = f"{utils.get_absolute_path('usage_message.txt')}"
+    path = f"{get_absolute_path('usage_message.txt')}"
     with open(path, 'r') as f:
         print(f.read())

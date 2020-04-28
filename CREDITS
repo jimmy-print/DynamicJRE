@@ -1,0 +1,9 @@
+Thanks to the developers who made autopep8 at
+https://pypi.org/project/autopep8/ https://github.com/hhatto/autopep
+for their automatic code formatting tool.
+
+Additional thanks to the developers who created pycodestyle at
+https://pypi.org/project/pycodestyle/ https://github.com/pycqa/pycodestyle
+for their style suggestions tool based on pep8.
+
+Code formatted with those tools is being used in this program.

@@ -1,6 +1,10 @@
 
 Usage:
-    jrep <episode-number> [options]
+    jrep <method> [options]
+
+Methods:
+    latest                          Download the latest episode
+    <episode-number>                Download the specified episode
 
 Options:
     -h, --help                      Show this message

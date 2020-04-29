@@ -24,19 +24,27 @@ def main():
         not_using_pipeline = False
 
     if not_using_pipeline:
-        first_argument = arguments[0]
+        method = arguments[0]
     else:
-        first_argument = "".join(
+        method = "".join(
             sys.stdin.readlines()
         ).rstrip()
 
-    episode_number = first_argument
-
     try:
+        int(method)
+        internal_method = "number"
+    except ValueError:
+        if method == "latest":
+            internal_method = "latest"
+        else:
+            print("Your argument should either be \"latest\" or an episode number.")
+            return 1
+
+    if internal_method == "number":
+        episode_number = method
         get_episode.with_episode_number(episode_number)
-    except TypeError:
-        print("You did not enter a proper episode number")
-        return 1
+    elif internal_method == "latest":
+        get_episode.latest()
 
 
 if __name__ == "__main__":

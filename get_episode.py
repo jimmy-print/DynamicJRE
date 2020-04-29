@@ -19,7 +19,7 @@ def latest():
     response = requests.get(homepage)
     soup = BeautifulSoup(response.text, "lxml")
 
-    latest_element = soup.find_all("div", attrs={"class":"episode odd"})[0]
+    latest_element = soup.find_all("div", attrs={"class": "episode odd"})[0]
     links = latest_element.find_all("li")
     download_link = links[2].a.get("href")
 

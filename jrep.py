@@ -37,7 +37,8 @@ def main():
         if method == "latest":
             internal_method = "latest"
         else:
-            print("Your argument should either be \"latest\" or an episode number.")
+            print("Your argument should either be "
+                  "\"latest\" or an episode number.")
             return 1
 
     if internal_method == "number":

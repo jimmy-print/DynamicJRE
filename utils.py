@@ -16,7 +16,7 @@ def print_usage_message():
 
 
 def get_settings():
-    with open("settings.txt", 'r') as f:
+    with open(get_absolute_path("settings.txt"), 'r') as f:
         raw_file = f.read()
 
     lines = raw_file.split("\n")

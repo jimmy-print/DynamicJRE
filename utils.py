@@ -23,12 +23,8 @@ def get_settings():
 
     settings = dict()
     for line in lines:
-        key, value = None, None
-        try:
+        if len(line.split()) == 2:
             key, value = line.split()
-        except ValueError:
-            # there is formatting whitespace
-            break
-        settings[key] = value
+            settings[key] = value
 
     return settings

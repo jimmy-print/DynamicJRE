@@ -1,6 +1,14 @@
-import subprocess
+import os
 import requests
 from bs4 import BeautifulSoup
+
+
+def _download(download_link, episode_number):
+    print(f"Downloading episode {episode_number}")
+    raw_episode = requests.get(download_link)
+    with open(f"p{episode_number}.mp3", "wb") as f:
+        print("Writing to mp3")
+        f.write(raw_episode.content)
 
 
 def with_episode_number(episode_number):
@@ -9,7 +17,7 @@ def with_episode_number(episode_number):
     url_format = "http://traffic.libsyn.com/joeroganexp/p"
 
     try:
-        subprocess.run(["wget", f"{url_format}{episode_number}.mp3"])
+        _download(f"{url_format}{episode_number}.mp3", episode_number)
     except KeyboardInterrupt:
         cleanup(episode_number)
 
@@ -28,7 +36,7 @@ def latest():
     episode_number = file_name.strip(".mp3")
 
     try:
-        subprocess.run(["wget", download_link])
+        _download(download_link, episode_number)
     except KeyboardInterrupt:
         cleanup(episode_number)
 
@@ -36,5 +44,8 @@ def latest():
 def cleanup(episode_number):
     print("\nKeyboard interrupt detected")
     print("Commencing cleanup")
-    subprocess.run(["rm", f"p{episode_number}.mp3"])
+    try:
+        os.remove(f"p{episode_number}.mp3")
+    except FileNotFoundError:
+        pass
     print("Cleanup complete. Exiting.")

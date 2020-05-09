@@ -40,19 +40,20 @@ class TestSettingsSaveFolder(unittest.TestCase):
     def setUp(self):
         self.settings_file = "tests/settings-save-folder.txt"
         self.save_folder = "~/Desktop"
+        self.number = 1000
         with open(self.settings_file, 'w') as f:
             f.write(f"Save-folder {self.save_folder}")
 
     def tearDown(self):
         os.remove(self.settings_file)
-        os.remove(f"{self.folder}/p1000.mp3")
+        os.remove(f"{self.folder}/p{self.number}.mp3")
 
     def test_save_folder(self):
         settings = utils.Settings()
         settings.load("tests/settings-save-folder.txt")
         self.folder = os.path.expanduser(settings.retrieve("Save-folder"))
-        get_episode.with_episode_number(1000, folder=self.folder)
-        self.assertTrue(os.path.isfile(f"{self.folder}/p1000.mp3"))
+        get_episode._download("https://example.com", self.number, folder=self.folder)
+        self.assertTrue(os.path.isfile(f"{self.folder}/p{self.number}.mp3"))
 
 
 if __name__ == "__main__":

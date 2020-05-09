@@ -15,16 +15,28 @@ def print_usage_message():
         print(f.read())
 
 
-def get_settings():
-    with open(get_absolute_path("settings.txt"), 'r') as f:
-        raw_file = f.read()
+class Settings:
+    def __init__(self, enabled_keys=None):
+        self.settings = {}
 
-    lines = raw_file.split("\n")
+        self.enabled_keys = enabled_keys
+        if self.enabled_keys is not None:
+            assert type(self.enabled_keys) == tuple
 
-    settings = dict()
-    for line in lines:
-        if len(line.split()) == 2:
-            key, value = line.split()
-            settings[key] = value
+    def load(self, settings_path):
+        with open(get_absolute_path(settings_path), 'r') as f:
+            raw_file = f.read()
 
-    return settings
+        lines = raw_file.split("\n")
+
+        for line in lines:
+            if len(line.split()) == 2:
+                key, value = line.split()
+                if self.enabled_keys is None:
+                    self.settings[key] = value
+                else:
+                    if key in self.enabled_keys:
+                        self.settings[key] = value
+
+    def retrieve(self, key):
+        return self.settings[key]

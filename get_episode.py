@@ -2,27 +2,33 @@ import os
 import requests
 from bs4 import BeautifulSoup
 
+import utils
 
-def _download(download_link, episode_number):
+settings = utils.Settings()
+settings.load("settings.txt")
+folder = os.path.expanduser(settings.retrieve("Save-folder"))
+
+
+def _download(download_link, episode_number, folder):
     print(f"Downloading episode {episode_number}")
     raw_episode = requests.get(download_link)
-    with open(f"p{episode_number}.mp3", "wb") as f:
+    with open(f"{folder}/p{episode_number}.mp3", "wb") as f:
         print("Writing to mp3")
         f.write(raw_episode.content)
 
 
-def with_episode_number(episode_number):
+def with_episode_number(episode_number, folder=folder):
     print(f"The episode number is {episode_number}")
 
     url_format = "http://traffic.libsyn.com/joeroganexp/p"
 
     try:
-        _download(f"{url_format}{episode_number}.mp3", episode_number)
+        _download(f"{url_format}{episode_number}.mp3", episode_number, folder)
     except KeyboardInterrupt:
         cleanup(episode_number)
 
 
-def latest():
+def latest(folder=folder):
     homepage = "http://podcasts.joerogan.net/"
     response = requests.get(homepage)
     soup = BeautifulSoup(response.text, "lxml")
@@ -36,7 +42,7 @@ def latest():
     episode_number = file_name.strip(".mp3")
 
     try:
-        _download(download_link, episode_number)
+        _download(download_link, episode_number, folder)
     except KeyboardInterrupt:
         cleanup(episode_number)
 

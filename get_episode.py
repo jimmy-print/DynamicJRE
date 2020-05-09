@@ -18,8 +18,6 @@ def _download(download_link, episode_number, folder):
 
 
 def with_episode_number(episode_number, folder=folder):
-    print(f"The episode number is {episode_number}")
-
     url_format = "http://traffic.libsyn.com/joeroganexp/p"
 
     try:

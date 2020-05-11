@@ -39,14 +39,12 @@ class TestSettingsEnabledKeys(unittest.TestCase):
 class TestSettingsSaveFolder(unittest.TestCase):
     def setUp(self):
         self.settings_file = "tests/settings-save-folder.txt"
-        self.save_folder = "~/Desktop"
         self.number = 1000
         with open(self.settings_file, 'w') as f:
-            f.write(f"Save-folder {self.save_folder}")
+            f.write(f"Save-folder ~/Desktop")
 
     def tearDown(self):
         os.remove(self.settings_file)
-        #os.remove(f"{self.folder}/p{self.number}.mp3")
         get_episode.cleanup(self.number, folder=self.folder)
 
     def test_save_folder(self):

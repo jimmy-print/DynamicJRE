@@ -40,3 +40,9 @@ class Settings:
 
     def retrieve(self, key):
         return self.settings[key]
+
+
+def show_save_folder():
+    settings = Settings()
+    settings.load(get_absolute_path("settings.txt"))
+    print(settings.retrieve("Save-folder"))

@@ -17,6 +17,10 @@ def main():
         utils.print_usage_message()
         return 0
 
+    if "--show-save-folder" in arguments:
+        utils.show_save_folder()
+        return 0
+
     not_using_pipeline = True
     if "-p" in arguments or "--pipe" in arguments:
         not_using_pipeline = False

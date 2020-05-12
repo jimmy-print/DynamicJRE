@@ -42,7 +42,7 @@ def main():
             print("Your argument should either be "
                   "\"latest\" or an episode number.")
             return 1
-    
+
     import get_episode
     if internal_method == "number":
         episode_number = method

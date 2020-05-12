@@ -18,7 +18,7 @@ def main():
         return 0
 
     if "--show-save-folder" in arguments:
-        utils.show_save_folder()
+        print(utils.get_save_folder())
         return 0
 
     not_using_pipeline = True

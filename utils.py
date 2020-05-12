@@ -42,7 +42,11 @@ class Settings:
         return self.settings[key]
 
 
-def show_save_folder():
+def get_save_folder():
     settings = Settings()
-    settings.load(get_absolute_path("settings.txt"))
-    print(settings.retrieve("Save-folder"))
+    settings.load("settings.txt")
+    try:
+        folder = os.path.expanduser(settings.retrieve("Save-folder"))
+    except KeyError:
+        folder = os.path.dirname(get_absolute_path(__file__))
+    return folder 

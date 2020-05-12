@@ -4,12 +4,10 @@ from bs4 import BeautifulSoup
 
 import utils
 
-settings = utils.Settings()
-settings.load("settings.txt")
-folder = os.path.expanduser(settings.retrieve("Save-folder"))
+folder = utils.get_save_folder()
 
 
-def _download(download_link, episode_number, folder):
+def _download(download_link, episode_number, folder=folder):
     try:
         print(f"Downloading episode {episode_number}")
         raw_episode = requests.get(download_link)
@@ -26,7 +24,7 @@ def _download(download_link, episode_number, folder):
 def with_episode_number(episode_number, folder=folder):
     url_format = "http://traffic.libsyn.com/joeroganexp/p"
 
-    _download(f"{url_format}{episode_number}.mp3", episode_number, folder)
+    _download(f"{url_format}{episode_number}.mp3", episode_number, folder=folder)
 
 
 def latest(folder=folder):
@@ -45,7 +43,7 @@ def latest(folder=folder):
     except KeyboardInterrupt:
         return
 
-    _download(download_link, episode_number, folder)
+    _download(download_link, episode_number, folder=folder)
 
 
 def cleanup(episode_number, folder=folder):

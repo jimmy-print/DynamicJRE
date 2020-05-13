@@ -18,7 +18,7 @@ class TestSaveFolder(unittest.TestCase):
 
     def test_save_folder(self):
         settings = utils.Settings()
-        settings.load("tests/settings-save-folder.txt")
+        settings.load(self.settings_file)
         self.folder = os.path.expanduser(settings.retrieve("Save-folder"))
         get_episode._download("https://example.com", self.number, folder=self.folder)
         print(f"{self.folder}/p{self.number}.mp3")

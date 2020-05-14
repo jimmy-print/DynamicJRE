@@ -17,18 +17,24 @@ class TestSaveFolder(unittest.TestCase):
         get_episode.cleanup(self.number, folder=self.folder)
 
     def test_save_folder(self):
-        settings = utils.Settings()
-        settings.load(self.settings_file)
-        self.folder = os.path.expanduser(settings.retrieve("Save-folder"))
+        self.folder = os.path.expanduser(utils.get_save_folder(self.settings_file))
         get_episode._download("https://example.com", self.number, folder=self.folder)
         print(f"{self.folder}/p{self.number}.mp3")
         self.assertTrue(os.path.isfile(f"{self.folder}/p{self.number}.mp3"))
 
 
 class TestNoSaveFolder(unittest.TestCase):
+    def setUp(self):
+        self.settings_file = "tests/settings-no-save-folder.txt"
+        self.number = 1000
+        with open(self.settings_file, 'w') as f:
+            pass
+
     def tearDown(self):
-        get_episode.cleanup(1000)
+        os.remove(self.settings_file)
+        get_episode.cleanup(self.number, folder=self.folder)
 
     def test_no_save_folder(self):
-        get_episode._download("https://example.com", 1000)
-        self.assertTrue(os.path.isfile("p1000.mp3"))
+        self.folder = os.path.expanduser(utils.get_save_folder("tests/settings-no-save-folder.txt"))
+        get_episode._download("https://example.com", self.number, folder=self.folder)
+        self.assertTrue(os.path.isfile(f"p{self.number}.mp3"))

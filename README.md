@@ -10,3 +10,7 @@ A command line podcast manager for The Joe Rogan Experience.
     jrep 1255
     jrep latest
 I am not affiliated with JRE.
+
+### Todo
+Not all episodes have a "Download this episode" link.
+Implement another way of finding the latest episode number.

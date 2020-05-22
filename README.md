@@ -1,5 +1,5 @@
 # DynamicJRE
-### A command line podcast manager for The Joe Rogan Experience.
+A command line podcast manager for The Joe Rogan Experience.
 
 ### Install
     git clone https://github.com/jimmy-print/DynamicJRE.git
@@ -9,3 +9,4 @@
     jrep --help
     jrep 1255
     jrep latest
+I am not affiliated with JRE.

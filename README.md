@@ -14,3 +14,5 @@ I am not affiliated with JRE.
 ### Todo
 Add testing for downloading the actual episodes without downloading the entire
 mp3 file.
+
+Add support for non-standard episodes (MMA, Fight Companion).

@@ -34,16 +34,14 @@ def latest(folder=folder):
         soup = BeautifulSoup(response.text, "lxml")
 
         latest_element = soup.find_all("div", attrs={"class": "episode odd"})[0]
-        links = latest_element.find_all("li")
-        download_link = links[2].a.get("href")
+        episode_number_element = latest_element.find("span", attrs={"class": "episode-num"})
+        episode_number = episode_number_element.text.strip("#")
 
-        file_name = download_link.split("/")[4]
-        # Stripping with .mp3 is perfect, as the p in front also gets removed.
-        episode_number = file_name.strip(".mp3")
+        url_format = "http://traffic.libsyn.com/joeroganexp/p"
     except KeyboardInterrupt:
         return
 
-    _download(download_link, episode_number, folder=folder)
+    _download(f"{url_format}{episode_number}.mp3", episode_number, folder=folder)
 
 
 def cleanup(episode_number, folder=folder):

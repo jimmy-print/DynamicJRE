@@ -39,9 +39,3 @@ class TestNoSaveFolder(unittest.TestCase):
         self.folder = os.path.expanduser(utils.get_save_folder("tests/settings-no-save-folder.txt"))
         get_episode._download("https://example.com", self.number, folder=self.folder)
         self.assertTrue(os.path.isfile(f"p{self.number}.mp3"))
-
-
-class TestUnsupportedEpisode(unittest.TestCase):
-    def test_unsupported_episode(self):
-        return_code = get_episode._download("http://traffic.libsyn.com/joeroganexp/p000.mp3", 0)
-        self.assertEqual(return_code, 404)

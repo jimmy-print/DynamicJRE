@@ -11,6 +11,10 @@ def _download(download_link, episode_number, folder=folder):
     try:
         print(f"Downloading episode {episode_number}")
         raw_episode = requests.get(download_link)
+        raw_episode.raise_for_status()
+    except requests.exceptions.HTTPError as e:
+        print(e)
+        return raw_episode.status_code
     except KeyboardInterrupt:
         return
     try:

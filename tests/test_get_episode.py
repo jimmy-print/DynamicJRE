@@ -39,3 +39,20 @@ class TestNoSaveFolder(unittest.TestCase):
         self.folder = os.path.expanduser(utils.get_save_folder("tests/settings-no-save-folder.txt"))
         get_episode._download("https://example.com", self.number, folder=self.folder)
         self.assertTrue(os.path.isfile(f"p{self.number}.mp3"))
+
+
+class TestCleanup(unittest.TestCase):
+    def setUp(self):
+        self.settings_file = "tests/settings-cleanup.txt"
+        self.number = 1000
+        with open(self.settings_file, 'w'):
+            pass
+
+    def tearDown(self):
+        os.remove(self.settings_file)
+
+    def test_cleanup(self):
+        self.folder = os.path.expanduser(utils.get_save_folder(self.settings_file))
+        get_episode._download("https://example.com", self.number, folder=self.folder)
+        get_episode.cleanup(self.number, folder=self.folder)
+        self.assertFalse(os.path.isfile(f"p{self.number}.mp3"))

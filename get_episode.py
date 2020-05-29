@@ -34,7 +34,7 @@ def with_episode_number(episode_number, folder=folder):
     _download(f"{url_format}{episode_number}.mp3", episode_number, folder=folder)
 
 
-def latest(folder=folder):
+def get_latest_episode_number():
     homepage = "http://podcasts.joerogan.net/"
     response = requests.get(homepage)
     soup = BeautifulSoup(response.text, "lxml")
@@ -43,7 +43,15 @@ def latest(folder=folder):
     episode_number_element = latest_element.find("span", attrs={"class": "episode-num"})
     episode_number = episode_number_element.text.strip("#")
 
-    url_format = "http://traffic.libsyn.com/joeroganexp/p"
+    return episode_number
+
+
+def latest(folder=folder):
+    try:
+        episode_number = get_latest_episode_number()
+        url_format = "http://traffic.libsyn.com/joeroganexp/p"
+    except KeyboardInterrupt:
+        return
 
     try:
         _download(f"{url_format}{episode_number}.mp3", episode_number, folder=folder)

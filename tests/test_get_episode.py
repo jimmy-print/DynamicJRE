@@ -56,3 +56,8 @@ class TestCleanup(unittest.TestCase):
         get_episode._download("https://example.com", self.number, folder=self.folder)
         get_episode.cleanup(self.number, folder=self.folder)
         self.assertFalse(os.path.isfile(f"p{self.number}.mp3"))
+
+
+class TestGetLatestEpNumber(unittest.TestCase):
+    def test_get_latest_ep_number(self):
+        get_episode.get_latest_episode_number()

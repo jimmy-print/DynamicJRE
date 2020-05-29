@@ -52,7 +52,7 @@ def latest(folder=folder):
         # regular episode but with an a after p### in the url.
         # However, the url could just be broken, if for example the way the
         # podcasts were formatted according to their numbers changed.
-    
+
         url_format = "http://traffic.libsyn.com/joeroganexp/mmashow"
 
         _download(f"{url_format}{episode_number}.mp3", episode_number, folder=folder)

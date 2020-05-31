@@ -66,4 +66,9 @@ class TestCleanup(unittest.TestCase):
 
 class TestGetLatestEpNumber(unittest.TestCase):
     def test_get_latest_ep_number(self):
-        get_episode.get_latest_episode_number()
+        num = get_episode.get_latest_episode_number()
+        print(num)
+        int(num)
+        # There is no self.assertDoesNotRaise in unittest, so this will
+        # cause an error instead of a failure if the test fails, as if
+        # the test itself was broken.

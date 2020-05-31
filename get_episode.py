@@ -67,7 +67,6 @@ def latest(folder=folder):
 
 
 def cleanup(episode_number, folder=folder):
-    print("\nKeyboard interrupt detected")
     print("Commencing cleanup")
     os.remove(f"{folder}/p{episode_number}.mp3")
     print("Cleanup complete. Exiting.")

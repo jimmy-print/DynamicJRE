@@ -44,9 +44,12 @@ class Settings:
 
 def get_save_folder(path="settings.txt"):
     settings = Settings()
-    settings.load(path)
     try:
+        settings.load(path)
         folder = os.path.expanduser(settings.retrieve("Save-folder"))
     except KeyError:
         folder = os.path.dirname(get_absolute_path(__file__))
+    except FileNotFoundError:
+        folder = os.path.dirname(get_absolute_path(__file__))
+        print("Please run ./setup, to generate a settings file.")
     return folder 

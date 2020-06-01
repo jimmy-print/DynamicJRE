@@ -5,9 +5,17 @@ import utils
 
 
 class TestKeyError(unittest.TestCase):
+    def setUp(self):
+        self.settings_file = "tests/settings-key-error.txt"
+        with open("tests/settings-key-error.txt", 'w') as f:
+            pass
+
+    def tearDown(self):
+        os.remove(self.settings_file)
+
     def test_key_error_fail(self):
         settings = utils.Settings()
-        settings.load("settings.txt")
+        settings.load(self.settings_file)
         self.assertRaises(KeyError, settings.retrieve, "nonexistent-key")
 
 

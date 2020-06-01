@@ -39,7 +39,7 @@ class TestNoSaveFolder(unittest.TestCase):
     def setUp(self):
         self.settings_file = "tests/settings-no-save-folder.txt"
         with open(self.settings_file, 'w') as f:
-            pass
+            f.write(f"Save-folder ~/Desktop")
 
     def tearDown(self):
         os.remove(self.settings_file)
@@ -48,14 +48,14 @@ class TestNoSaveFolder(unittest.TestCase):
     def test_no_save_folder(self):
         self.folder = os.path.expanduser(utils.get_save_folder("tests/settings-no-save-folder.txt"))
         make_test_request(self)
-        self.assertTrue(os.path.isfile(f"p{number}.mp3"))
+        self.assertTrue(os.path.isfile(f"{self.folder}/p{number}.mp3"))
 
 
 class TestCleanup(unittest.TestCase):
     def setUp(self):
         self.settings_file = "tests/settings-cleanup.txt"
-        with open(self.settings_file, 'w'):
-            pass
+        with open(self.settings_file, 'w') as f:
+            f.write(f"Save-folder ~/Desktop")
 
     def tearDown(self):
         os.remove(self.settings_file)
@@ -64,15 +64,24 @@ class TestCleanup(unittest.TestCase):
         self.folder = os.path.expanduser(utils.get_save_folder(self.settings_file))
         make_test_request(self)
         get_episode.cleanup(number, folder=self.folder)
-        self.assertFalse(os.path.isfile(f"p{number}.mp3"))
+        self.assertFalse(os.path.isfile(f"{self.folder}/p{number}.mp3"))
 
 
 class TestGetLatestEp(unittest.TestCase):
+    def setUp(self):
+        self.settings_file = "tests/settings-get-latest-ep.txt"
+        with open(self.settings_file, 'w') as f:
+            f.write(f"Save-folder ~/Desktop")
+
+    def tearDown(self):
+        os.remove(self.settings_file)
+            
     def test_get_latest_ep_attrs(self):
         episode_num, episode_type = get_episode.get_latest_episode_attributes()
         int(episode_num)
         self.assertTrue(episode_type, get_episode.episode_types)
 
     def test_get_latest_ep(self):
-        episode_num_alt, __ = get_episode.latest(headers=headers)
-        get_episode.cleanup(episode_num_alt)
+        folder = os.path.expanduser(utils.get_save_folder(self.settings_file))
+        episode_num_alt, __ = get_episode.latest(folder=folder, headers=headers)
+        get_episode.cleanup(episode_num_alt, folder=folder)

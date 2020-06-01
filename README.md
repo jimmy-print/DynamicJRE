@@ -16,5 +16,6 @@ Add testing for downloading the actual episodes without downloading the entire
 mp3 file.
 
 Add support for non-standard episodes (MMA, Fight Companion).
+(This is partially completed. MMA episodes are now supported.)
 
 Change setup script to a python file.

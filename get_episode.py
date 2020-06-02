@@ -80,7 +80,3 @@ def cleanup(episode_number, folder=folder):
     print("Commencing cleanup")
     os.remove(f"{folder}/p{episode_number}.mp3")
     print("Cleanup complete. Exiting.")
-
-
-if __name__ == "__main__":
-    download("0", FIGHT)

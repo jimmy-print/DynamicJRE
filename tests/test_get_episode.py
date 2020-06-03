@@ -1,6 +1,5 @@
 import unittest
 import os
-import requests
 
 import get_episode
 import utils

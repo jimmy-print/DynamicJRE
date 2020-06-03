@@ -15,38 +15,25 @@ def print_usage_message():
         print(f.read())
 
 
-class Settings:
-    def __init__(self, enabled_keys=None):
-        self.settings = {}
+def get_settings(settings_path):
+    with open(get_absolute_path(settings_path), 'r') as f:
+        raw_file = f.read()
 
-        self.enabled_keys = enabled_keys
-        if self.enabled_keys is not None:
-            assert type(self.enabled_keys) == tuple
+    lines = raw_file.split("\n")
 
-    def load(self, settings_path):
-        with open(get_absolute_path(settings_path), 'r') as f:
-            raw_file = f.read()
+    settings = {}
+    for line in lines:
+        if len(line.split()) == 2:
+            key, value = line.split()
+            settings[key] = value
 
-        lines = raw_file.split("\n")
-
-        for line in lines:
-            if len(line.split()) == 2:
-                key, value = line.split()
-                if self.enabled_keys is None:
-                    self.settings[key] = value
-                else:
-                    if key in self.enabled_keys:
-                        self.settings[key] = value
-
-    def retrieve(self, key):
-        return self.settings[key]
+    return settings
 
 
 def get_save_folder(path="settings.txt"):
-    settings = Settings()
+    settings = get_settings(path)
     try:
-        settings.load(path)
-        folder = os.path.expanduser(settings.retrieve("Save-folder"))
+        folder = os.path.expanduser(settings["Save-folder"])
     except KeyError:
         folder = os.path.dirname(get_absolute_path(__file__))
     except FileNotFoundError:

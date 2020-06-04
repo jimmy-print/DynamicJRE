@@ -15,6 +15,10 @@ url_formats = (
     "http://traffic.libsyn.com/joeroganexp/mmashow{}.mp3",
 )
 # Fight episodes aren't supported yet
+alt_regular_url_format = "http://traffic.libsyn.com/joeroganexp/p{}a.mp3"
+# Sometimes the url for regular episodes has an 'a' after the
+# url number. I have no idea why.
+
 episode_type_url_format = dict(zip(episode_types, url_formats))
 
 
@@ -26,8 +30,11 @@ def download(episode_number, episode_type, folder=folder, headers=None):
         raw_episode = requests.get(download_link, headers=headers)
         raw_episode.raise_for_status()
     except requests.exceptions.HTTPError as e:
-        print(e)
-        return
+        download_link = alt_regular_url_format.format(episode_number)
+        print("Trying alternative url format...")
+        raw_episode = requests.get(download_link, headers=headers)
+        raw_episode.raise_for_status()  # Not wrapped yet
+        # Not protected against KeyboardInterrupt
     except KeyboardInterrupt:
         return
     try:

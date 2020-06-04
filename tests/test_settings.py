@@ -1,32 +1,28 @@
 import unittest
-import os
 
 import utils
+from .abstract_testcase import CreateDeleteSettingsFile
 
 
-class TestKeyError(unittest.TestCase):
+class TestKeyError(CreateDeleteSettingsFile):
     def setUp(self):
-        self.settings_file = "tests/settings-key-error.txt"
-        with open("tests/settings-key-error.txt", 'w') as f:
-            pass
+        self.setUpFunc("tests/settings-key-error.txt", "tests/settings-key-error.txt")
 
     def tearDown(self):
-        os.remove(self.settings_file)
+        self.tearDownFunc()
 
     def test_key_error(self):
         settings = utils.get_settings(self.settings_file)
         self.assertEqual(settings.get("nonexistent-key"), None)
 
 
-class TestGetSettings(unittest.TestCase):
+class TestGetSettings(CreateDeleteSettingsFile):
     def setUp(self):
-        self.settings_file = "tests/settings-get-settings.txt"
-        with open(self.settings_file, 'w') as f:
-            f.write("Test 1")
+        self.setUpFunc("tests/settings-get-settings.txt", "Test 1")
         self.settings = utils.get_settings(self.settings_file)
 
     def tearDown(self):
-        os.remove(self.settings_file)
+        self.tearDownFunc()
 
     def test_get_settings(self):
         self.assertTrue("Test" in self.settings)

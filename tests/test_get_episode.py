@@ -3,6 +3,7 @@ import os
 
 import get_episode
 import utils
+from .abstract_testcase import CreateDeleteSettingsFile
 
 headers = {
     "Range": "bytes=0-100"
@@ -13,19 +14,17 @@ number = 1000
 
 def make_test_request(self):
     get_episode.download(
-            number, get_episode.REGULAR,
-            folder=self.folder, headers=headers)
+        number, get_episode.REGULAR,
+        folder=self.folder, headers=headers)
 
 
-class TestSaveFolder(unittest.TestCase):
+class TestSaveFolder(CreateDeleteSettingsFile):
     def setUp(self):
-        self.settings_file = "tests/settings-save-folder.txt"
-        with open(self.settings_file, 'w') as f:
-            f.write(f"Save-folder ~/Desktop")
+        self.setUpFunc("tests/settings-save-folder.txt", "Save-folder ~/Desktop")
 
     def tearDown(self):
-        os.remove(self.settings_file)
-        get_episode.cleanup(number, folder=self.folder)
+        self.tearDownFunc(
+            extra_func=lambda: get_episode.cleanup(number, folder=self.folder))
 
     def test_save_folder(self):
         self.folder = os.path.expanduser(utils.get_save_folder(self.settings_file))
@@ -34,15 +33,13 @@ class TestSaveFolder(unittest.TestCase):
         self.assertTrue(os.path.isfile(f"{self.folder}/p{number}.mp3"))
 
 
-class TestNoSaveFolder(unittest.TestCase):
+class TestNoSaveFolder(CreateDeleteSettingsFile):
     def setUp(self):
-        self.settings_file = "tests/settings-no-save-folder.txt"
-        with open(self.settings_file, 'w') as f:
-            f.write(f"Save-folder ~/Desktop")
+        self.setUpFunc("tests/settings-no-save-folder.txt", "Save-folder ~/Desktop")
 
     def tearDown(self):
-        os.remove(self.settings_file)
-        get_episode.cleanup(number, folder=self.folder)
+        self.tearDownFunc(
+            extra_func=lambda: get_episode.cleanup(number, folder=self.folder))
 
     def test_no_save_folder(self):
         self.folder = os.path.expanduser(utils.get_save_folder("tests/settings-no-save-folder.txt"))
@@ -50,14 +47,12 @@ class TestNoSaveFolder(unittest.TestCase):
         self.assertTrue(os.path.isfile(f"{self.folder}/p{number}.mp3"))
 
 
-class TestCleanup(unittest.TestCase):
+class TestCleanup(CreateDeleteSettingsFile):
     def setUp(self):
-        self.settings_file = "tests/settings-cleanup.txt"
-        with open(self.settings_file, 'w') as f:
-            f.write(f"Save-folder ~/Desktop")
+        self.setUpFunc("tests/settings-cleanup.txt", "Save-folder ~/Desktop")
 
     def tearDown(self):
-        os.remove(self.settings_file)
+        self.tearDownFunc()
 
     def test_cleanup(self):
         self.folder = os.path.expanduser(utils.get_save_folder(self.settings_file))
@@ -66,15 +61,13 @@ class TestCleanup(unittest.TestCase):
         self.assertFalse(os.path.isfile(f"{self.folder}/p{number}.mp3"))
 
 
-class TestGetLatestEp(unittest.TestCase):
+class TestGetLatestEp(CreateDeleteSettingsFile):
     def setUp(self):
-        self.settings_file = "tests/settings-get-latest-ep.txt"
-        with open(self.settings_file, 'w') as f:
-            f.write(f"Save-folder ~/Desktop")
+        self.setUpFunc("tests/settings-get-latest-ep.txt", "Save-folder ~/Desktop")
 
     def tearDown(self):
-        os.remove(self.settings_file)
-            
+        self.tearDownFunc()
+
     def test_get_latest_ep_attrs(self):
         episode_num, episode_type = get_episode.get_latest_episode_attributes()
         int(episode_num)

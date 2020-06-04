@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
 
-# assumes that setup is run as
-# $ ./setup.py
-# instead of as
-# $ DynamicJRE/setup
-
 import subprocess
 
 print("--------------------")

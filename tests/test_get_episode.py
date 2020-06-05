@@ -77,3 +77,7 @@ class TestGetLatestEp(CreateDeleteSettingsFile):
         folder = os.path.expanduser(utils.get_save_folder(self.settings_file))
         episode_num_alt, __ = get_episode.latest(folder=folder, headers=headers)
         get_episode.cleanup(episode_num_alt, folder=folder)
+
+
+if __name__ == "__main__":
+    main()

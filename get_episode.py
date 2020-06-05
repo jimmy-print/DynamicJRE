@@ -30,11 +30,13 @@ def download(episode_number, episode_type, folder=folder, headers=None):
         raw_episode = requests.get(download_link, headers=headers)
         raw_episode.raise_for_status()
     except requests.exceptions.HTTPError as e:
-        download_link = alt_regular_url_format.format(episode_number)
-        print("Trying alternative url format...")
-        raw_episode = requests.get(download_link, headers=headers)
-        raw_episode.raise_for_status()  # Not wrapped yet
-        # Not protected against KeyboardInterrupt
+        try:
+            download_link = alt_regular_url_format.format(episode_number)
+            print("Trying alternative url format...")
+            raw_episode = requests.get(download_link, headers=headers)
+            raw_episode.raise_for_status()  # Not wrapped yet
+        except KeyboardInterrupt:
+            return
     except KeyboardInterrupt:
         return
     try:

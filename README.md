@@ -9,4 +9,4 @@ I am not affiliated with JRE.
 
 ### Todo
 For this branch:
-- use a proper setup.py with distutils
+- use a proper setup.py with setuptools

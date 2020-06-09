@@ -2,7 +2,7 @@
 
 import sys
 
-import utils
+from . import utils
 
 
 def main():
@@ -43,7 +43,8 @@ def main():
                   "\"latest\" or an episode number.")
             return 1
 
-    import get_episode
+    from . import get_episode
+    # The import statement is here to let the usage statement display quickly.
     if internal_method == "number":
         episode_number = method
         get_episode.with_episode_number(episode_number)

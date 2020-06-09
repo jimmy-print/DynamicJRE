@@ -1,18 +1,13 @@
-import subprocess
-import os
+from setuptools import setup
 
-import utils
-
-print("Creating symbolic link")
-subprocess.run(["ln", "-s", "$(pwd)/jrep.py", "/usr/local/bin/jrep"])
-print()
-
-print("Creating settings file")
-if os.path.isfile(utils.get_absolute_path("settings.txt")):
-    print("File exists.")
-else:
-    with open(utils.get_absolute_path("settings.txt"), 'w') as f:
-        pass
-print()
-
-print("Setup complete.")
+setup(
+    name="DynamicJRE",
+    version="0.0",
+    description="Command line podcast downloader for The JRE",
+    author_email="jimmy.wang123@outlook.sg",
+    packages=["dynamic_jre"],
+    entry_points={
+        "console_scripts": ['jrep = dynamic_jre.jrep:main']
+    },
+    install_requirements=["requests", "bs4"],
+)

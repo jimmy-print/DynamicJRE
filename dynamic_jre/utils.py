@@ -10,6 +10,17 @@ def get_absolute_path(relative_path):
 
 
 def print_usage_message():
-    path = f"{get_absolute_path('../usage_message.txt')}"
-    with open(path, 'r') as f:
-        print(f.read())
+    print("""
+Usage:
+    jrep <method> [options]
+
+Methods:
+    latest                          Download the latest episode
+    <episode-number>                Download the specified episode
+
+Options:
+    -h, --help                      Show this message
+    -p, --pipe                      Use unix pipelines instead of
+                                    positional arguments
+    --show-save-folder              Print the save folder being used
+""")

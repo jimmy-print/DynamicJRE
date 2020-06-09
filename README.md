@@ -15,7 +15,6 @@ setup.py will:
 I am not affiliated with JRE.
 
 ### Todo
-Add support for non-standard episodes (MMA, Fight Companion).
-(This is partially completed. MMA episodes are now supported.)
-
-Use a different file format from plain text to store configuration.
+For this branch:
+- use a proper setup.py with distutils
+- create a dynamic_jre folder with module files

@@ -1,12 +1,15 @@
 # DynamicJRE
 A command line podcast manager for The Joe Rogan Experience.
 
+### Install
+    git clone https://github.com/jimmy-print/DynamicJRE.git
+    cd DynamicJRE
+    pip install .
+
 ### Usage examples
-    dynamic_jre/jrep.py --help
-    dynamic_jre/jrep.py 1255
-    dynamic_jre/jrep.py latest
+    jrep --help
+    jrep 1255
+    jrep latest
 I am not affiliated with JRE.
 
 ### Todo
-For this branch:
-- use a proper setup.py with setuptools

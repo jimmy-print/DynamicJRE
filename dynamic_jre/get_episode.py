@@ -2,10 +2,6 @@ import os
 import requests
 from bs4 import BeautifulSoup
 
-import utils
-
-folder = utils.get_save_folder()
-
 REGULAR = "regular"
 MMA = "mma"
 FIGHT = "fight"
@@ -22,7 +18,7 @@ alt_regular_url_format = "http://traffic.libsyn.com/joeroganexp/p{}a.mp3"
 episode_type_url_format = dict(zip(episode_types, url_formats))
 
 
-def download(episode_number, episode_type, folder=folder, headers=None):
+def download(episode_number, episode_type, headers=None):
     try:
         print(f"Downloading episode {episode_type} {episode_number}")
         download_link = (
@@ -40,16 +36,16 @@ def download(episode_number, episode_type, folder=folder, headers=None):
     except KeyboardInterrupt:
         return
     try:
-        with open(f"{folder}/p{episode_number}.mp3", "wb") as f:
+        with open(f"p{episode_number}.mp3", "wb") as f:
             print("Writing to mp3")
             f.write(raw_episode.content)
     except KeyboardInterrupt:
         cleanup(episode_number)
 
 
-def with_episode_number(episode_number, folder=folder, headers=None):
+def with_episode_number(episode_number, headers=None):
     # with_episode_number only works with regular episodes for now
-    download(episode_number, REGULAR, folder=folder, headers=headers)
+    download(episode_number, REGULAR, headers=headers)
 
 
 def get_latest_episode_attributes():
@@ -75,17 +71,17 @@ def get_latest_episode_attributes():
     return episode_number, episode_type
 
 
-def latest(folder=folder, headers=None):
+def latest(headers=None):
     try:
         episode_number, episode_type = get_latest_episode_attributes()
     except KeyboardInterrupt:
         return
 
-    download(episode_number, episode_type, folder=folder, headers=headers)
+    download(episode_number, episode_type, headers=headers)
     return episode_number, episode_type # For testing purposes
 
 
-def cleanup(episode_number, folder=folder):
+def cleanup(episode_number):
     print("Commencing cleanup")
-    os.remove(f"{folder}/p{episode_number}.mp3")
+    os.remove(f"p{episode_number}.mp3")
     print("Cleanup complete. Exiting.")

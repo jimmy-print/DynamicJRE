@@ -13,3 +13,4 @@ A command line podcast manager for The Joe Rogan Experience.
 I am not affiliated with JRE.
 
 ### Todo
+- Use argparse for command line arguments.

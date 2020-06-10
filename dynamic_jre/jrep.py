@@ -1,8 +1,13 @@
 #!/usr/local/bin/python3
 
 import sys
+import os
 
-from . import utils
+try:
+    from dynamic_jre import utils
+except ModuleNotFoundError:
+    # assume pip3 install . has not been run
+    import utils
 
 
 def main():
@@ -43,8 +48,11 @@ def main():
                   "\"latest\" or an episode number.")
             return 1
 
-    from . import get_episode
-    # The import statement is here to let the usage statement display quickly.
+    try:
+        from dynamic_jre import get_episode
+        # The import statement is here to let the usage statement display quickly.
+    except ModuleNotFoundError:
+        import get_episode
     if internal_method == "number":
         episode_number = method
         get_episode.with_episode_number(episode_number)

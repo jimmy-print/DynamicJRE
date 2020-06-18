@@ -24,17 +24,15 @@ def download(episode_number, episode_type, headers=None):
         download_link = (
             episode_type_url_format[episode_type].format(episode_number))
         raw_episode = requests.get(download_link, headers=headers)
-        raw_episode.raise_for_status()
-    except requests.exceptions.HTTPError as e:
-        try:
+
+        if not raw_episode.ok:
             download_link = alt_regular_url_format.format(episode_number)
             print("Trying alternative url format...")
             raw_episode = requests.get(download_link, headers=headers)
-            raw_episode.raise_for_status()  # Not wrapped yet
-        except KeyboardInterrupt:
-            return
     except KeyboardInterrupt:
         return
+
+    # Use context manager here?
     try:
         with open(f"p{episode_number}.mp3", "wb") as f:
             print("Writing to mp3")

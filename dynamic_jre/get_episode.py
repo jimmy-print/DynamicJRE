@@ -19,6 +19,7 @@ episode_type_url_format = dict(zip(episode_types, url_formats))
 
 
 def download(episode_number, episode_type, headers=None):
+    """Calls requests.get to do the actual downloading"""
     try:
         print(f"Downloading episode {episode_type} {episode_number}")
         download_link = (
@@ -29,6 +30,9 @@ def download(episode_number, episode_type, headers=None):
             download_link = alt_regular_url_format.format(episode_number)
             print("Trying alternative url format...")
             raw_episode = requests.get(download_link, headers=headers)
+            # If the response is the 404 html
+            if raw_episode.headers['content-type'] == 'text/html; charset=UTF-8':
+                print('Episode {} was not found.'.format(episode_number))
     except KeyboardInterrupt:
         return
 
@@ -42,13 +46,12 @@ def download(episode_number, episode_type, headers=None):
 
 
 def with_episode_number(episode_number, headers=None):
-    # with_episode_number only works with regular episodes for now
+    """Downloads the specified regular episode"""
     download(episode_number, REGULAR, headers=headers)
 
 
 def get_latest_episode_attributes():
     """Returns latest episode number and type (Regular, MMA, Fight)"""
-
     homepage = "http://podcasts.joerogan.net/"
     response = requests.get(homepage)
     soup = BeautifulSoup(response.text, "lxml")
@@ -70,6 +73,7 @@ def get_latest_episode_attributes():
 
 
 def latest(headers=None):
+    """Downloads the latest episode"""
     try:
         episode_number, episode_type = get_latest_episode_attributes()
     except KeyboardInterrupt:
@@ -80,6 +84,7 @@ def latest(headers=None):
 
 
 def cleanup(episode_number):
+    """Deletes the downloaded episode"""
     print("Commencing cleanup")
     os.remove(f"p{episode_number}.mp3")
     print("Cleanup complete. Exiting.")

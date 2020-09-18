@@ -69,6 +69,9 @@ def get_latest_episode_attributes():
     else:
         episode_type = REGULAR
 
+    print("asdf")
+    print(title_element.a.h3)
+
     return episode_number, episode_type
 
 

@@ -10,7 +10,7 @@ setup(
     license="MIT",
     packages=["dynamicjre"],
     entry_points={
-        "console_scripts": ['jrep = dynamic_jre.jrep:main']
+        "console_scripts": ['jrep = dynamicjre.jrep:main']
     },
     install_requires=["requests", "bs4", "lxml"],
 )

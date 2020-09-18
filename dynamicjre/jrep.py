@@ -4,7 +4,7 @@ import sys
 import os
 
 try:
-    from dynamic_jre import utils
+    from dynamicjre import utils
 except ModuleNotFoundError:
     # assume pip3 install . has not been run
     import utils
@@ -49,7 +49,7 @@ def main():
             return 1
 
     try:
-        from dynamic_jre import get_episode
+        from dynamicjre import get_episode
         # The import statement is here to let the usage statement display quickly.
     except ModuleNotFoundError:
         import get_episode

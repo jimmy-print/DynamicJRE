@@ -14,3 +14,4 @@ I am not affiliated with JRE.
 
 ### Todo
 - Use argparse for command line arguments.
+- Display guest names in the command line message.

@@ -18,10 +18,10 @@ alt_regular_url_format = "http://traffic.libsyn.com/joeroganexp/p{}a.mp3"
 episode_type_url_format = dict(zip(episode_types, url_formats))
 
 
-def download(episode_number, episode_type, headers=None):
+def download(episode_number, episode_type, guest, headers=None):
     """Calls requests.get to do the actual downloading"""
     try:
-        print(f"Downloading episode {episode_type} {episode_number}")
+        print(f"Downloading episode {episode_type} {episode_number} {guest}")
         download_link = (
             episode_type_url_format[episode_type].format(episode_number))
         raw_episode = requests.get(download_link, headers=headers)
@@ -47,7 +47,9 @@ def download(episode_number, episode_type, headers=None):
 
 def with_episode_number(episode_number, headers=None):
     """Downloads the specified regular episode"""
-    download(episode_number, REGULAR, headers=headers)
+    # guest is an empty string because I haven't implemented searching
+    # with ep. numbers
+    download(episode_number, REGULAR, guest="", headers=headers)
 
 
 def get_latest_episode_attributes():
@@ -69,21 +71,20 @@ def get_latest_episode_attributes():
     else:
         episode_type = REGULAR
 
-    print("asdf")
-    print(title_element.a.h3)
+    guest = latest_element.find("a", attrs={"data-section": "podcasts"}).get("data-title")
 
-    return episode_number, episode_type
+    return episode_number, episode_type, guest
 
 
 def latest(headers=None):
     """Downloads the latest episode"""
     try:
-        episode_number, episode_type = get_latest_episode_attributes()
+        episode_number, episode_type, guest = get_latest_episode_attributes()
     except KeyboardInterrupt:
         return
 
-    download(episode_number, episode_type, headers=headers)
-    return episode_number, episode_type # For testing purposes
+    download(episode_number, episode_type, guest, headers=headers)
+    return episode_number, episode_type, guest # For testing purposes
 
 
 def cleanup(episode_number):

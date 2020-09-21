@@ -1,7 +1,7 @@
 import unittest
 import os
 
-from dynamic_jre import get_episode
+from dynamicjre import get_episode
 
 headers = {
     "Range": "bytes=0-100"
@@ -12,7 +12,7 @@ number = 1000
 
 def make_test_request(self):
     get_episode.download(
-        number, get_episode.REGULAR,
+        number, get_episode.REGULAR, "",
         headers=headers)
 
 
@@ -43,12 +43,12 @@ class TestCleanup(unittest.TestCase):
 
 class TestGetLatestEp(unittest.TestCase):
     def test_get_latest_ep_attrs(self):
-        episode_num, episode_type = get_episode.get_latest_episode_attributes()
+        episode_num, episode_type, __ = get_episode.get_latest_episode_attributes()
         int(episode_num)
         self.assertTrue(episode_type, get_episode.episode_types)
 
     def test_get_latest_ep(self):
-        episode_num_alt, __ = get_episode.latest(headers=headers)
+        episode_num_alt, __, __ = get_episode.latest(headers=headers)
         get_episode.cleanup(episode_num_alt)
 
 
